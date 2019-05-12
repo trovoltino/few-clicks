@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <video autoplay muted loop id="myVideo">
+      <source src="./assets/few-clicks-video.mp4" type="video/mp4">
+    </video>
     <div class="shadow">
       <HelloWorld class="main-content" msg="FewClicks"/>
       <popup/>
@@ -26,12 +29,22 @@ body{
   margin: 0px;
   padding: 0px;
 }
+#myVideo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%; 
+  min-height: 100%;
+ 
+  transform: scale(1.1, 1.4) translate(-50%, -36%);
+
+}
 #app {
-  background: url(./assets/FewLogo.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
+  /* background: url(./assets/few-clicks-video.mp4) no-repeat center center fixed; */
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

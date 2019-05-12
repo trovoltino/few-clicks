@@ -1,11 +1,10 @@
 <template>
   <div class="main">
     <div class="hello">
-      <img src="../assets/FewCliks.png" alt="FewClicks" class="title-logo">
-      <h1>{{ msg }}</h1>
+      <img src="../assets/FewClicks.png" alt="FewClicks" class="title-logo">
+     
     </div>
     <h3 class="info">Making booklets and catalogs have never been easier!</h3>
-    <button class="contact" type="button">contact us</button>
   </div>
   
 </template>
@@ -21,14 +20,12 @@ export default {
 
 <style scoped>
 .hello {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 0px;
   padding: 0px;
 }
 .title-logo{
-  height: 130px;
+  height: 450px;
+  background: transparent;
 }
 h1 {
   font-size: 8em;

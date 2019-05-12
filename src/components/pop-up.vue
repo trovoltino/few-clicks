@@ -1,8 +1,11 @@
 <template>
-  <div class="container">
-    <form action="">
+  <div class="container" v-on:click="show=!show" v-bind:class="{ hide: show }">
+    <form action="" v-bind:class="{ formShow: show }">
       <input type="text" placeholder="Name">
       <input type="email" name="email" id="email" placeholder="email">
+      <textarea name="message" rows="10" cols="30">
+          The cat was playing in the garden.
+      </textarea>
       <input type="button" value="submit">
     </form>
     <p class="contact">contact us</p>
@@ -11,7 +14,12 @@
 
 <script>
 export default {
-  name: 'pop-up'
+  name: 'pop-up',
+  data() {
+    return{
+      show: false
+    }
+  }
 }
 </script>
 
@@ -27,14 +35,12 @@ export default {
     -moz-border-radius: 150px / 80px;
     -webkit-border-radius: 150px / 80px;
     border-radius: 150px / 80px;
-    background: rgb(196, 50, 50);
+    background:rgb(63, 63, 63);
     transition: all 1s ease-in-out;
+    border: solid black 1px;
+    box-shadow: 2px silver;
   }
-  .container:active {
-    height: 75%;
-    width: 45%;
-    
-  }
+  
   p {
     text-align: center;
     text-transform: uppercase;
@@ -49,5 +55,15 @@ export default {
   }
   form {
     display: none;
+    transition: all 1s ease-in-out;
+  }
+  .formShow {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .hide {
+    height: 75%;
+    width: 45%;
   }
 </style>

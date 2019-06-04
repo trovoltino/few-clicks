@@ -1,14 +1,37 @@
 <template>
   <div id="app">
-    <video autoplay muted loop id="myVideo">
-      <source src="./assets/few-clicks-video.mp4" type="video/mp4">
-    </video>
-    <div class="shadow">
-      <div class="main-content">
+    <div class="page-one">
+      <nav class="main-nav">
         <img src="./assets/FewClicks.png" alt="FewClicks" class="title-logo">
+        <ul class="nav-bar">
+          <a class="links" v-for="(name, i) in links" v-bind:key="name" @click="scrollPage(i)" :class="{current: i == current}">{{name}}</a>
+        </ul>
+      </nav>
+      <main class="main-content">
+        <video autoplay muted loop id="myVideo">
+          <source src="./assets/few-clicks-video.mp4" type="video/mp4">
+        </video>
         <h3 class="info" v-bind:class="{ hide: show }">Making booklets and catalogs have never been easier!</h3>
-      </div>
-      <popup @hide-field = "hideField"/>
+      </main>
+      <popup class="footer" @hide-field = "hideField"/>
+    </div>
+    <div class="page-two">
+      <main class="main-content">
+        <aside class="left">
+          <h3>Без автоматизации</h3>
+          <p>Время создания зависит от опыта дизайнера</p>
+          <p>Ошибка стоимости продукта Ошибка в орфографии</p>
+          <p>Недостаток времени на обновление дизайна</p>
+          <p>Проверка наличия фотографии продукта Ручной ввод всей информации о продукте</p>
+        </aside>
+        <aside class="right">
+          <h3>FewClics</h3>
+          <p>Сокрощение срока создания до 4 раз</p>
+          <p>Минимальное количество ошибок</p>
+          <p>Время на креатив</p>
+          <p>Автоматический поиск изображений Информационная база продукции</p>
+        </aside>
+      </main>
     </div>
   </div>
 </template>
@@ -25,32 +48,34 @@ export default {
   methods: {
     hideField:function(value){
       this.show = value;
+    },
+    scrollPage:function(i){
+      this.current = i;
+      switch (i) {
+        case 1:
+          window.scrollBy(0, 1000);
+          break;
+      
+        case 0:
+          window.scrollBy(0, -1000);
+          break;
+
+        default:
+          break;
+      }
     }
   },
   data() {
     return{
-      show: false
+      show: false,
+      current:0,
+      links:['Home','Why FewClicks', 'Video', 'Contact Us']
     }
   }
 }
 </script>
 
 <style>
-body{
-  overflow: hidden;
-  margin: 0px;
-  padding: 0px;
-}
-#myVideo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%; 
-  min-height: 100%;
-  z-index: -1;
-  transform: scale(1.4, 1.4) translate(-36%, -36%);
-
-}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -58,33 +83,112 @@ body{
   text-align: center;
   color: #f6f6f6;
   height: 100vh;
+  background: rgb(34, 29, 29);
+  margin: 0% 6%;  
 }
-.shadow {
-  background:rgba(0, 0, 0, 0.5);
-  z-index: 10;
+body{
+  margin: 0px;
+  padding: 0px;
+  background: gray;
+}
+a {
+  color: rgb(224, 224, 224);
+  text-decoration: none;
+}
+.footer {
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%,0%);
+}
+.page-one {
   height: 100vh;
 }
-h3 {
-  font-size: 1.5em;
-  text-transform: uppercase;
-  
+.main-nav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  min-width: 88%;
+  align-items: flex-end;
+  z-index: 100;
+}
+.nav-bar {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-right: 10%;
+}
+.main-nav ul a{
+  margin: 20px 10px;
+  cursor: pointer;
+}
+.current {
+  text-decoration: underline;
+  color: white;
 }
 .title-logo{
-  height: 450px;
+  height: 180px;
   background: transparent;
+  margin-left: 10%;
 }
-.main-content{
-  width: 90%;
+.page-one .main-content {
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -80%);
+  top: 50%;
+  transform:translate(-50%, -50%);
+  width: 80%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  padding-left: 2%;
+}
+#myVideo {
+  width: 600px;
+  height: 400px;
+  
+}
+.info {
+  text-transform: uppercase;
+  font-size: 56px;
+  margin-left: -10%;
+  z-index: 10;
+  text-align: start;
+  width: 600px;
+  min-width: 400px;
 }
 .hide{
   visibility: hidden;
 }
+.page-two {
+  background: rgb(34, 29, 29);
+  height: 100vh;
+}
+.page-two .main-content {
+  width: 790px;
+  display: flex;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0px;
 
+}
+.left {
+  border-right: 1px solid white;
+  padding-right: 35px;
+}
+.right {
+  border-left: 1px solid white;
+  padding-left: 35px;
+}
+.left p, .left h3 {
+  text-align: end;
+  width: 395px;
+  height: 40px;
+}
+.right p, .right h3 {
+  text-align: left;
+  width: 395px;
+  height: 40px;
+}
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="container" v-bind:class="{ containerShow: !show }">
-    <div class="slide-up" @click="handler()">
+    <!-- <div class="slide-up" @click="handler()">
       <img class="slide-up-first" src="../assets/up-chevron.svg" alt="" v-bind:class="{ invisible: !show }">
       <img class="slide-up-second" src="../assets/up-chevron.svg" alt="" v-bind:class="{ invisible: !show }">
-    </div>
+    </div> -->
     
-    <form action="" v-bind:class="{ formShow: show }">
+    <form action="" v-bind:class="{ formShow: show }" id="contact-form">
       <input type="text" placeholder="Name">
       <input type="email" name="email" id="email" placeholder="email">
       <textarea name="message" rows="10" cols="30">
@@ -13,7 +13,16 @@
       </textarea>
       <button>submit</button>
     </form>
-    <p v-bind:class="{ hide: show }" class="contact">contact us</p>
+    <div class="footer-box">
+      <div class="footer-left">
+        <p v-bind:class="{ hide: show }" class="contact">Contacts</p>
+        <div class="underline"></div>
+        <p>FewClicks.app@gmail.com</p>
+      </div>
+      <p class="copyright">Copyright © FewClicks 2019</p>
+    </div>
+    
+    
   </div>
 </template>
 
@@ -23,13 +32,12 @@ export default {
   name: 'pop-up',
   data() {
     return{
-      show: true
+      show: false
     }
   },
   methods: {
     showForm:function(){
       this.show = !this.show;
-      
     },
     hideParentFields:function(){
       this.$emit('hide-field', this.show);
@@ -47,20 +55,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .container {
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    height: 1050px;
+    height: 650px;
     width: 850px;
-    border-radius: 70px;
     background:rgba(48, 48, 48, 0.8);
     transition: width, height, 1s ease-in-out;
-    box-shadow:inset 0px 0px 0px 1px #bee2f9;
-    border:1px solid #b4b4b4;
     cursor:pointer;
     color:#14396a;
-    text-shadow:0px 1px 0px #dee0e2;
+  }
+  .containerShow {
+    height: 70px;
+    width: 850px;
   }
   .btn-look {
     box-shadow:inset 0px 0px 0px 1px #bee2f9;
@@ -68,15 +72,10 @@ export default {
   p {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
-    text-transform: uppercase;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 16px;
     color: white;
-    position: relative;
-    top: -55%;
-    width: 100%;
-    text-transform: uppercase;
     z-index: -1;
+    margin: 4px;
   }
   .slide-up-first, .slide-up-second{
     height: 40px;
@@ -95,7 +94,7 @@ export default {
   }
   form {
     display: none;
-    transition: width, height, 1s ease-in-out;
+    transition: width, height, 0.4s;
     position: relative;
     top: 50%;
     left: 50%;
@@ -134,15 +133,6 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
   }
-  .containerShow {
-    /* height: 1050px;
-    width: 850px; */
-    height: 150px;
-    width: 420px;
-  }
-  .containerShow:hover {
-    background: #656566;
-  }
   .hide {
     display: none;
   }
@@ -151,5 +141,25 @@ export default {
   }
   .red {
     color: red;
+  }
+  .footer-box {
+    display: flex;
+    align-items: center;
+  }
+  .footer-left {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0px 30px;
+  }
+  .copyright {
+    position: absolute;
+    right: 30px;
+  }
+  .underline {
+    border: solid white 1px;
+    width: 210px;
   }
 </style>

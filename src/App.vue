@@ -7,16 +7,16 @@
           <a class="links" v-for="(name, i) in links" v-bind:key="name" @click="scrollPage(i)" :class="{current: i == current}">{{name}}</a>
         </ul>
       </nav>
-      <main class="main-content">
+      <main class="main-content" v-bind:class="{ hide: show }">
         <video autoplay muted loop id="myVideo">
           <source src="./assets/few-clicks-video.mp4" type="video/mp4">
         </video>
-        <h3 class="info" v-bind:class="{ hide: show }">Making booklets and catalogs have never been easier!</h3>
+        <h3 class="info">Making booklets and catalogs have never been easier!</h3>
       </main>
-      <popup class="footer" @hide-field = "hideField"/>
+      <popup class="footer" :displayForm="show"/>
     </div>
     <div class="page-two">
-      <main class="main-content">
+      <main class="main-content" v-bind:class="{ hide: show }">
         <aside class="left">
           <h3>Без автоматизации</h3>
           <p>Время создания зависит от опыта дизайнера</p>
@@ -46,20 +46,20 @@ export default {
     popup
   },
   methods: {
-    hideField:function(value){
-      this.show = value;
-    },
     scrollPage:function(i){
       this.current = i;
       switch (i) {
         case 1:
+          this.show = false; 
           window.scrollBy(0, 1000);
           break;
-      
         case 0:
+          this.show = false; 
           window.scrollBy(0, -1000);
           break;
-
+        case 3:
+          this.show = !this.show;
+          break;
         default:
           break;
       }

@@ -1,11 +1,11 @@
 <template>
-  <div class="container" v-bind:class="{ containerShow: !show }">
+  <div class="container" v-bind:class="{ containerShow: !displayForm }">
     <!-- <div class="slide-up" @click="handler()">
       <img class="slide-up-first" src="../assets/up-chevron.svg" alt="" v-bind:class="{ invisible: !show }">
       <img class="slide-up-second" src="../assets/up-chevron.svg" alt="" v-bind:class="{ invisible: !show }">
     </div> -->
     
-    <form action="" v-bind:class="{ formShow: show }" id="contact-form">
+    <form action="" v-bind:class="{ formShow: displayForm }" id="contact-form">
       <input type="text" placeholder="Name">
       <input type="email" name="email" id="email" placeholder="email">
       <textarea name="message" rows="10" cols="30">
@@ -13,9 +13,9 @@
       </textarea>
       <button>submit</button>
     </form>
-    <div class="footer-box">
+    <div class="footer-box" v-bind:class="{ positionTop: displayForm }">
       <div class="footer-left">
-        <p v-bind:class="{ hide: show }" class="contact">Contacts</p>
+        <p class="contact">Contacts</p>
         <div class="underline"></div>
         <p>FewClicks.app@gmail.com</p>
       </div>
@@ -35,10 +35,13 @@ export default {
       show: false
     }
   },
+  props: {
+    displayForm: {
+      type: Boolean,
+      default:false
+    }
+  },
   methods: {
-    showForm:function(){
-      this.show = !this.show;
-    },
     hideParentFields:function(){
       this.$emit('hide-field', this.show);
     },
@@ -58,7 +61,6 @@ export default {
     height: 650px;
     width: 850px;
     background:rgba(48, 48, 48, 0.8);
-    transition: width, height, 1s ease-in-out;
     cursor:pointer;
     color:#14396a;
   }
@@ -98,7 +100,7 @@ export default {
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-140%);
+    transform: translate(-50%,-50%);
     width: 70%;
   }
   form input, form textarea{
@@ -161,5 +163,10 @@ export default {
   .underline {
     border: solid white 1px;
     width: 210px;
+  }
+  .positionTop {
+    position: absolute;
+    top: 10px;
+    width: 100%;
   }
 </style>

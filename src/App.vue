@@ -13,7 +13,7 @@
         </video>
         <h3 class="info">Making booklets and catalogs have never been easier!</h3>
       </main>
-      <popup class="footer" :displayForm="show"/>
+      <popup class="footer" v-on:send-email = "sendEmail" :displayForm="show"/>
     </div>
     <div class="page-two">
       <main class="main-content" v-bind:class="{ hide: show }">
@@ -23,6 +23,7 @@
           <p>Ошибка стоимости продукта Ошибка в орфографии</p>
           <p>Недостаток времени на обновление дизайна</p>
           <p>Проверка наличия фотографии продукта Ручной ввод всей информации о продукте</p>
+          <p>{{eBody}} was send by {{eFrom}} to user {{eTo}}</p>
         </aside>
         <aside class="right">
           <h3>FewClics</h3>
@@ -39,6 +40,8 @@
 <script>
 
 import popup from './components/pop-up.vue';
+// import axios from 'axios';
+import sgMail from '@sendgrid/mail';
 
 export default {
   name: 'app',
@@ -63,13 +66,32 @@ export default {
         default:
           break;
       }
+    },
+    sendEmail(newEmail) {
+      const{emailTo, emailFrom, emailBody} = newEmail;
+      this.eTo = emailTo;
+      this.eFrom = emailFrom;
+      this.eBody = emailBody;
+      // console.log(`${emailTo} sent from ${emailFrom} with ${emailBody}`)
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        to: 'matiissdz@gmail.com',
+        from: 'test@example.com',
+        subject: 'Sending with Twilio SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      };
+      sgMail.send(msg);
     }
   },
   data() {
     return{
       show: false,
       current:0,
-      links:['Home','Why FewClicks', 'Video', 'Contact Us']
+      links:['Home','Why FewClicks', 'Video', 'Contact Us'],
+      eTo: '',
+      eFrom: '',
+      eBody: ''
     }
   }
 }

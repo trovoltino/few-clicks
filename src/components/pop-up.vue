@@ -5,13 +5,11 @@
       <img class="slide-up-second" src="../assets/up-chevron.svg" alt="" v-bind:class="{ invisible: !show }">
     </div> -->
     
-    <form action="" v-bind:class="{ formShow: displayForm }" id="contact-form">
-      <input type="text" placeholder="Name">
-      <input type="email" name="email" id="email" placeholder="email">
-      <textarea name="message" rows="10" cols="30">
-          The cat was playing in the garden.
-      </textarea>
-      <button>submit</button>
+    <form action="" v-bind:class="{ formShow: displayForm }" id="contact-form" @submit="sendEmail">
+      <input type="email" name="email" id="email-to" placeholder="To" v-model="emailTo">
+      <input type="email" name="email" id="email-from" placeholder="From" v-model="emailFrom">
+      <textarea name="message" rows="10" cols="30" v-model="emailBody" placeholder="Send Us Your message here."></textarea>
+      <input type="submit" value="Submit" class="btn">
     </form>
     <div class="footer-box" v-bind:class="{ positionTop: displayForm }">
       <div class="footer-left">
@@ -32,7 +30,10 @@ export default {
   name: 'pop-up',
   data() {
     return{
-      show: false
+      show: false,
+      emailTo: 'fewclicks.app@gmail.com',
+      emailFrom: '',
+      emailBody: ''
     }
   },
   props: {
@@ -48,8 +49,16 @@ export default {
     handler:function() {
       this.showForm();
       this.hideParentFields();
+    },
+    sendEmail(e){
+      e.preventDefault();
+      const newEmail = {
+        emailTo: this.emailTo,
+        emailFrom: this.emailFrom,
+        emailBody: this.emailBody
+      }
+      this.$emit('send-email', newEmail);
     }
-
   }
 }
 

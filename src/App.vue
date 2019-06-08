@@ -41,7 +41,7 @@
 
 import popup from './components/pop-up.vue';
 // import axios from 'axios';
-import sgMail from '@sendgrid/mail';
+// import sgMail from '@sendgrid/mail';
 
 export default {
   name: 'app',
@@ -68,20 +68,36 @@ export default {
       }
     },
     sendEmail(newEmail) {
+      const PW = 'S6939937510g'
+      const user = 'matiss.zilionis'
+      const apikey = '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'
+      // const{ title, completed } = newTodo;
       const{emailTo, emailFrom, emailBody} = newEmail;
-      this.eTo = emailTo;
-      this.eFrom = emailFrom;
-      this.eBody = emailBody;
-      // console.log(`${emailTo} sent from ${emailFrom} with ${emailBody}`)
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const msg = {
-        to: 'matiissdz@gmail.com',
-        from: 'test@example.com',
-        subject: 'Sending with Twilio SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-      };
-      sgMail.send(msg);
+      axios.post('https://api.sendgrid.com/api/mail.send.json', {
+        api_user:user,
+        api_key: PW,
+        to: emailTo,
+        toname: 'its important',
+        subject: 'first maile',
+        text: emailBody,
+        from: 'matissdz@gmail.com' 
+      })
+        .then(res => console.log("we did something"))
+        .catch(err => console.log(err))
+      // const{emailTo, emailFrom, emailBody} = newEmail;
+      // this.eTo = emailTo;
+      // this.eFrom = emailFrom;
+      // this.eBody = emailBody;
+      // // console.log(`${emailTo} sent from ${emailFrom} with ${emailBody}`)
+      // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      // const msg = {
+      //   to: 'matiissdz@gmail.com',
+      //   from: 'test@example.com',
+      //   subject: 'Sending with Twilio SendGrid is Fun',
+      //   text: 'and easy to do anywhere, even with Node.js',
+      //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      // };
+      // sgMail.send(msg);
     }
   },
   data() {

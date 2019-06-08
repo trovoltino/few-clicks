@@ -40,7 +40,7 @@
 <script>
 
 import popup from './components/pop-up.vue';
-// import axios from 'axios';
+import axios from 'axios';
 // import sgMail from '@sendgrid/mail';
 
 export default {
